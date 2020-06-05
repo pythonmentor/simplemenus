@@ -1,12 +1,11 @@
 """Module implémentant un exemple simpliste de machine à états."""
 
-from typing import Callable
+from typing import Callable, Dict
 
 
 class SimpleStateMachine:
-    """Représente une machine à états simple destinées à implémenter un parcours
-    utilisateur dans un système de menus.
-    """
+    """Représente une machine à états simple destinées à implémenter un
+    parcours utilisateur dans un système de menus."""
 
     def __init__(self, start_state: Callable) -> None:
         """Initialise une nouvelle machine à états."""

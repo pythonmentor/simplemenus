@@ -1,4 +1,4 @@
-"""Implémentation de l'application elle-même"""
+"""Implémentation de l'application elle-même."""
 
 from typing import Any, Dict, Tuple
 
@@ -77,6 +77,6 @@ class Application(SimpleStateMachine):
             .render(args)
         )
 
-    def handle_quit(self, **args: Any) -> Tuple[MenuEntry, Dict]:
+    def handle_quit(self, **args: Any):
         print("Au revoir")
         return None, args
