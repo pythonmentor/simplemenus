@@ -6,10 +6,6 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 class MenuEntry:
     """Représente une entrée de menu contenant définie par un objet (item) et
     l'état suivant, si l'entrée est sélectionnée.
-
-    Attributs:
-        item: objet possédant une méthode __str__ pour l'affichage
-        next: fonction ou méthode implémentant le menu suivant
     """
 
     def __init__(self, item: Any, next_state: Callable) -> None:
