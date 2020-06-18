@@ -10,5 +10,6 @@ docformatter = "*"
 autopep8 = "*"
 
 [packages]
+jinja2 = "*"
 
 [requires]

@@ -1,6 +1,6 @@
 """Module de lancement de l'application."""
 
-from .app import Application
+from .application import Application
 
 
 def main() -> None:

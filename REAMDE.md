@@ -6,8 +6,11 @@ menus.
 
 ## Installation
 
+1. Installer pipenv si nécessaire avec pip
 1. Cloner ce dépôt de code avec `git clone https://github.com/pythonmentor/simplemenus.git`
 1. Se rendre dans le projet avec `cd simplemenus`
+1. Installer les dépendences du projet avec `pipenv install`
+
 
 ## Démarrage
 
