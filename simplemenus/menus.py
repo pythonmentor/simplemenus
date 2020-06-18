@@ -1,14 +1,12 @@
 """Module implémentant des classes en relations avec le menu."""
 
-from typing import Any, Callable, Dict, List, Optional, Tuple
-
 
 class MenuEntry:
     """Représente une entrée de menu contenant définie par un objet (item) et
     l'état suivant, si l'entrée est sélectionnée.
     """
 
-    def __init__(self, item: Any, next_state: Callable) -> None:
+    def __init__(self, item, next_state):
         """Initialise l'entrée du menu avec un item, une méthode jouant le rôle
         d'état suivant et un lien vers le menu.
 
@@ -16,14 +14,14 @@ class MenuEntry:
             item: objet possédant une méthode __str__ pour l'affichage
             next_state: fonction ou méthode implémentant le menu suivant
         """
-        self.item: Any = item
-        self.next: Callable = next_state
+        self.item = item
+        self.next = next_state
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Formate l'entrée pour son affichage au sein du menu."""
         return str(self.item)
 
-    def __call__(self, **args) -> Tuple["MenuEntry", Dict]:
+    def __call__(self, **args):
         """Executes the next state."""
         return self.next(**args)
 
@@ -32,7 +30,7 @@ class Menu:
     """Représente un menu présentant un ou plusieurs options à
     l'utilisateur."""
 
-    def __init__(self, name: str, verbose_name: Optional[str] = None) -> None:
+    def __init__(self, name, verbose_name = None):
         """Initialise un nouveau menu vide.
 
         Args:
@@ -41,10 +39,10 @@ class Menu:
         """
         self._name = name
         self._verbose_name = verbose_name if verbose_name is not None else name
-        self._entries: Dict = {}
-        self._autokey: int = 1
+        self._entries = {}
+        self._autokey = 1
 
-    def add(self, key: str, item: Any, next: Callable) -> "Menu":
+    def add(self, key, item, next):
         """Ajoute une nouvelle option à proposer à l'utilisateur.
 
         Args:
@@ -60,7 +58,7 @@ class Menu:
         self._entries[key] = MenuEntry(item, next)
         return self
 
-    def add_many(self, items: List, next: Callable) -> "Menu":
+    def add_many(self, items, next):
         """Ajouter plusieurs options auto-numérotées.
 
         Args:
@@ -73,22 +71,22 @@ class Menu:
 
         return self
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Formate le menu en vue de sa présentation à l'utilisateur."""
-        lines: List[str] = [f"{self._verbose_name.title()}\n"]
+        lines = [f"{self._verbose_name.title()}\n"]
         for key, value in self._entries.items():
             lines.append(f"{key} - {value}")
         lines.append("")
         lines.append(">>> ")
         return "\n".join(lines)
 
-    def render(self, args: Dict) -> Tuple[MenuEntry, Dict]:
+    def render(self, args):
         """Affiche le menu à l'utilisateur et attend la réponse de ce dernier.
 
         Le menu est réaffiché tant que l'utilisateur ne choisit pas une
         des options proposées.
         """
-        entries: Dict = self._entries
+        entries = self._entries
         while True:
             choice = input(self).lower().strip()
             if choice in entries:
