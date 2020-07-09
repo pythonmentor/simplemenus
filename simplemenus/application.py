@@ -1,6 +1,6 @@
 """Implémentation du controlleur de l'application."""
 
-from .controller import BaseApplication
+from .controllers import BaseApplication
 from .models import Menu
 
 
