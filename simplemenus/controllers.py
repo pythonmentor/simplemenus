@@ -1,3 +1,6 @@
+from . import template_environment
+
+
 class BaseApplication:
     """Application de base implémentant les détails de bas niveau de 
     l'application, soit la machine à état et les saisies utilisateur.
