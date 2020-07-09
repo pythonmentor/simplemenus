@@ -11,6 +11,5 @@ class SimpleStateMachine:
 
     def start(self):
         """Démarre la machine à états."""
-        args = {}
         while self._next_state:
-            self._next_state, args = self._next_state(**args)
+            self._next_state = self._next_state()
