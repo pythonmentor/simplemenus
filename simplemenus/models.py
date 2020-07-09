@@ -63,28 +63,6 @@ class Menu:
         self._entries[key] = MenuEntry(choice, handler)
         return self
 
-    def add_many(self, choices, handler=None):
-        """Ajoute plusieurs nouvelles options à proposer à l'utilisateur.
-
-        Args:
-            choices: liste d'objets à proposer comme choix à l'utilisateur ou 
-                liste de tuples (clé, objet, fonction) si on ne désire pas 
-                utiliser une clé autoincrémentée ou la fonction fournie
-                par défaut.
-            handler: fonction ou méthode à appeler en cas de sélection
-
-        Raises:
-            Une ValueError est levée si aucune fonction de traitement n'est 
-            fournie pour gérer la sélection des choix ajoutés au menu.
-
-        """
-        for choice in choices:
-            key = "auto"
-            func = handler
-            if isinstance(choice, tuple):
-                key, choice, func = choice
-            self.add(key, choice, func)
-
     def __contains__(self, key):
         """Supporte l'opérateur in sur le menu."""
         return key in self._entries
