@@ -1,25 +1,29 @@
 """Module implémentant des classes en relations avec le menu."""
 
 
-class MenuEntry:
-    """Représente une entrée de menu définie par un objet (item) et un callable
-    représentant l'état suivant."""
+class MenuChoice:
+    """Représente un choix du menu définie par un objet (item) et un objet
+    exécutable permettant de gérer la sélection."""
 
-    def __init__(self, choice, handler):
+    def __init__(self, item, handler):
         """Initialise l'entrée du menu avec un choix et une fonction fonction
         qui sera appelée à la sélection de ce choix.
 
         Args:
-            choice: objet possédant une méthode __str__ pour l'affichage
+            item: objet possédant une méthode __str__ pour l'affichage
             handler: fonction ou méthode à appeler en cas de sélection
 
         """
-        self.choice = choice
+        self.item = choice
         self.handler = handler
 
     def __str__(self):
-        """Formate l'entrée pour son affichage au sein du menu."""
-        return str(self.choice)
+        """Formate le choix représenté par cet objet."""
+        return str(self.item)
+
+    def __call__(self):
+        """Appelle la fonction de traitement associée au choix."""
+        return self.handler()
 
 
 class Menu:
@@ -55,12 +59,12 @@ class Menu:
         """
         if not callable(handler):
             raise ValueError(
-                "The handler provided to handle '{}' must be callable"
+                f"The handler provided to handle '{choice}' must be callable"
             )
         if key == "auto":
             key = str(self._autokey)
             self._autokey += 1
-        self._entries[key] = MenuEntry(choice, handler)
+        self._entries[key] = MenuChoice(choice, handler)
         return self
 
     def __contains__(self, key):

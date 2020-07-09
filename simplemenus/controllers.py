@@ -1,6 +1,3 @@
-from . import template_environment
-
-
 class BaseApplication:
     """Application de base implémentant les détails de bas niveau de 
     l'application, soit la machine à état et les saisies utilisateur.
@@ -28,7 +25,7 @@ class BaseApplication:
             choice = input(template.render(menu=menu, **kwargs))
             if choice in menu:
                 self.choices['last'] = self.choices[menu.name] = menu[choice]
-                return menu[choice].handler
+                return menu[choice]
 
     def start(self):
         """Démarre l'application."""
