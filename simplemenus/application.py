@@ -1,17 +1,16 @@
 """Implémentation du controlleur de l'application."""
 
 from .models import Menu, MenuEntry
-from .statemachine import SimpleStateMachine
 from . import template_environment
 
 
-class BaseApplication(SimpleStateMachine):
+class BaseApplication:
     """Application de base implémentant les détails de bas niveau de 
     l'application, soit la machine à état et les saisies utilisateur.
     """
 
-    def __init__(self, start_state):
-        super().__init__(start_state)
+    def __init__(self, start_menu):
+        self.next_menu = start_menu
         self.choices = {}
 
     def render(self, menu, template_name, **kwargs):
@@ -22,8 +21,9 @@ class BaseApplication(SimpleStateMachine):
 
         Args:
             menu: objet représentant le menu à afficher
-            template_name: nom du fichier de template représentant la vue.
-            args: dictionnaire d'arguments contenant les choix de l'utilisateur
+            template_name: nom du fichier de template représentant la vue
+            kargs: dictionnaire d'arguments à envoyer au template
+
         """
         while True:
             # Chargement de la vue via le template
@@ -31,7 +31,12 @@ class BaseApplication(SimpleStateMachine):
             choice = input(template.render(menu=menu, **kwargs))
             if choice in menu:
                 self.choices['last'] = self.choices[menu.name] = menu[choice]
-                return menu[choice]
+                return menu[choice].handler
+
+    def start(self):
+        """Démarre l'application."""
+        while self.next_menu:
+            self.next_menu = self.next_menu()
 
 
 class Application(BaseApplication):
