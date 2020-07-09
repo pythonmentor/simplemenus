@@ -34,3 +34,4 @@ class BaseApplication:
         """Démarre l'application."""
         while self.next_menu:
             self.next_menu = self.next_menu()
+
