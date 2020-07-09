@@ -14,7 +14,7 @@ class MenuChoice:
             handler: fonction ou méthode à appeler en cas de sélection
 
         """
-        self.item = choice
+        self.item = item
         self.handler = handler
 
     def __str__(self):
